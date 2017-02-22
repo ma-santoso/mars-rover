@@ -1,6 +1,7 @@
 import praw
 
 bot = "mars-rover"
+sub = "indonesia"
 
 def mars_lyric():
 	lyric = """
@@ -27,15 +28,15 @@ def bot_login():
 	return reddit
 
 def main(reddit):
-	sub = reddit.subreddit("indonesia")
-	for comment in sub.stream.comments():
+	for comment in reddit.subreddit(sub).stream.comments():
 		if ("perindo" in comment.body.lower() or 
 			"mars" in comment.body.lower()):
 				name = comment.author.name
 				if (bot != name):
 					print("comment found! by " + name)
 					print(comment.body)
-					#comment.reply(mars_lyric())
+					print("replying...")
+					comment.reply(mars_lyric())
 
 while True:
 	reddit = bot_login()
