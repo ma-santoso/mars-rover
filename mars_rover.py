@@ -1,6 +1,6 @@
 import praw
-import config
-import time
+
+bot = "mars-rover"
 
 def mars_lyric():
 	lyric = """
@@ -21,28 +21,22 @@ def mars_lyric():
 	return lyric
 
 def bot_login():
-	print("Loggin in...")
-	reddit = praw.Reddit(username = config.username,
-		password = config.password,
-		client_id = config.client_id,
-		client_secret = config.client_secret,
-		user_agent = "mars-rover")
+	print("Logging in...")
+	reddit = praw.Reddit(bot)
 	print("Logged in!")
 	return reddit
 
-def run_bot(reddit):
+def main(reddit):
 	sub = reddit.subreddit("indonesia")
-	bot = config.username
 	for comment in sub.stream.comments():
 		if ("perindo" in comment.body.lower() or 
 			"mars" in comment.body.lower()):
 				name = comment.author.name
 				if (bot != name):
 					print("comment found! by " + name)
-					comment.reply(mars_lyric())
-
-	time.sleep(10)
+					print(comment.body)
+					#comment.reply(mars_lyric())
 
 while True:
 	reddit = bot_login()
-	run_bot(reddit)
+	main(reddit)
