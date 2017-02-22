@@ -31,8 +31,8 @@ def bot_login():
 	return reddit
 
 def run_bot(reddit):
-	sub = reddit.subreddit("mharcss")
-	bot = "mars-rover"
+	sub = reddit.subreddit("indonesia")
+	bot = config.username
 	for comment in sub.stream.comments():
 		if ("perindo" in comment.body.lower() or 
 			"mars" in comment.body.lower()):
